@@ -23,5 +23,9 @@ call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 " initialize
 call InitializeAYUNiS()
 
+" Next
+nnoremap <C-s>l :call AYUNiSNext
+nnoremap <C-s>h :call AYUNiSPrev
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
