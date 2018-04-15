@@ -9,14 +9,14 @@ call dein#add("NoahOrberg/AYUNiS.nvim")
 
 2. `:call dein#update()`
 
-3. execute `$ go get github.com/NoahOrberg/AYUNiS.nvim` because install binary
+3. execute `$ go get -u github.com/NoahOrberg/AYUNiS.nvim` because install binary
 
-4. Let's Enjoy `AYUNiS` Life!
+4. Let's Enjoy `AYUNiS.nvim` Life!
 
 ## Usage
 ### Get the name of the song that is playing now
 ``` vim
-echo AYUNiSGetNowPlaying()
+:echo AYUNiSGetNowPlaying()
 ```
 if you want to add to `statusline`, plz set as below
 ``` vim
