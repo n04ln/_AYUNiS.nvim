@@ -2,6 +2,6 @@
 
 if application "Spotify" is running
   tell application "Spotify"
-    next track
+    previous track
   end tell
 end if
