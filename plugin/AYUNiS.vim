@@ -17,5 +17,8 @@ call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 \ {'type': 'function', 'name': 'GetNowPlaying', 'sync': 1, 'opts': {}},
 \ ])
 
+" statusline
+set statusline+=%!GetNowPlaying()
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
