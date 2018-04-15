@@ -12,8 +12,7 @@ type Spotify struct {
 }
 
 func (s *Spotify) init() {
-	// TODO: 現在流れている曲取得
-	s.NowPlaying = "a"
+	// initialize
 }
 
 func NewSpotify() *Spotify {
@@ -38,12 +37,33 @@ func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
 			out, err := exec.Command("/usr/bin/osascript", "spotify_util/now_playing.applescript").Output()
 			if err != nil {
 				nimvle.Log(err.Error())
-				nimvle.Log("err")
 				continue
 			}
 
-			s.NowPlaying = string(out)
+			s.NowPlaying = string(out[:len(out)-1]) // drop ^@
 		}
 	}()
 
+}
+
+func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+
+	_, err := exec.Command("/usr/bin/osascript", "spotify_util/playback_next.applescript").Output()
+	if err != nil {
+		nimvle.Log(err.Error())
+	}
+
+	return nil
+}
+
+func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+
+	_, err := exec.Command("/usr/bin/osascript", "spotify_util/playback_prev.applescript").Output()
+	if err != nil {
+		nimvle.Log(err.Error())
+	}
+
+	return nil
 }

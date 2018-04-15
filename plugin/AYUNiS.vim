@@ -14,7 +14,9 @@ endfunction
 
 call remote#host#Register('AYUNiS.nvim', '0', function('s:RequireAYUNiS'))
 call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
-\ {'type': 'function', 'name': 'GetNowPlaying', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSGetNowPlaying', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSNext', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSPrev', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'InitializeAYUNiS', 'sync': 1, 'opts': {}},
 \ ])
 

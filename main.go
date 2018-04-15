@@ -9,7 +9,9 @@ func main() {
 	s := command.NewSpotify()
 
 	plugin.Main(func(p *plugin.Plugin) error {
-		p.HandleFunction(&plugin.FunctionOptions{Name: "GetNowPlaying"}, s.GetNowPlaying)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSGetNowPlaying"}, s.GetNowPlaying)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSNext"}, s.Next)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSPrev"}, s.Prev)
 		p.HandleFunction(&plugin.FunctionOptions{Name: "InitializeAYUNiS"}, s.Init)
 		return nil
 	})

@@ -9,7 +9,7 @@ if application "Spotify" is running
     end if
     set currentArtist to artist of current track as string
     set currentTrack to name of current track as string
-    return nowPlaying & currentArtist & " - " & currentTrack
+    return nowPlaying & currentTrack & " - " & currentArtist
   end tell
 else
   "Spotify is not running."
