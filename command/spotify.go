@@ -24,7 +24,7 @@ func NewSpotify() *Spotify {
 
 func (s *Spotify) Init(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	pollingNowPlaying(nimvle)
+	s.pollingNowPlaying(nimvle)
 	return nil
 }
 
@@ -32,12 +32,14 @@ func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 	return s.NowPlaying, nil
 }
 
-func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimve) {
+func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
 	go func() {
-		for i := uint64(0); ; i++ {
+		for {
 			out, err := exec.Command("/usr/bin/osascript", "spotify_util/now_playing.applescript").Output()
 			if err != nil {
 				nimvle.Log(err.Error())
+				nimvle.Log("err")
+				continue
 			}
 
 			s.NowPlaying = string(out)

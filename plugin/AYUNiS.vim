@@ -15,10 +15,14 @@ endfunction
 call remote#host#Register('AYUNiS.nvim', '0', function('s:RequireAYUNiS'))
 call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 \ {'type': 'function', 'name': 'GetNowPlaying', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'InitializeAYUNiS', 'sync': 1, 'opts': {}},
 \ ])
 
 " statusline
 set statusline+=%!GetNowPlaying()
+
+" initialize
+call InitializeAYUNiS()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
