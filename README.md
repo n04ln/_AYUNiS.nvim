@@ -21,7 +21,7 @@ echo AYUNiSGetNowPlaying()
 if you want to add to `statusline`, plz set as below
 ``` vim
 " default
-set statusline+=#!AYUNiSGetNowPlaying()
+set statusline+=%!AYUNiSGetNowPlaying()
 
 " use airline
 let g:airline_section_x = airline#section#create(['%{AYUNiSGetNowPlaying()}'])
