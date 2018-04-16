@@ -12,5 +12,5 @@ if application "Spotify" is running
     return nowPlaying & currentTrack & " - " & currentArtist
   end tell
 else
-  "Spotify is not running."
+  return "no music"
 end if

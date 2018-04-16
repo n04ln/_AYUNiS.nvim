@@ -34,7 +34,8 @@ func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
 	go func() {
 		for {
-			out, err := exec.Command("/usr/bin/osascript", "spotify_util/now_playing.applescript").Output()
+			// out, err := exec.Command("/usr/bin/osascript", "spotify_util/now_playing.applescript").Output()
+			out, err := exec.Command("pwd").Output()
 			if err != nil {
 				nimvle.Log(err.Error())
 				continue
