@@ -17,6 +17,7 @@ call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 \ {'type': 'function', 'name': 'AYUNiSGetNowPlaying', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'AYUNiSNext', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'AYUNiSPrev', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSToggle', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'InitializeAYUNiS', 'sync': 1, 'opts': {}},
 \ ])
 
@@ -26,6 +27,8 @@ call InitializeAYUNiS()
 nnoremap <silent><C-s>l :call AYUNiSNext()<CR>
 " Prev
 nnoremap <silent><C-s>h :call AYUNiSPrev()<CR>
+" Toggle(playpause)
+nnoremap <silent><C-s>t :call AYUNiSToggle()<CR>
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

@@ -79,3 +79,14 @@ func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
 
 	return nil
 }
+
+func (s *Spotify) Toggle(v *nvim.Nvim, args []string) error {
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+
+	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_toggle.applescript").Output()
+	if err != nil {
+		nimvle.Log(err.Error())
+	}
+
+	return nil
+}

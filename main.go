@@ -12,6 +12,7 @@ func main() {
 		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSGetNowPlaying"}, s.GetNowPlaying)
 		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSNext"}, s.Next)
 		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSPrev"}, s.Prev)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "AYUNiSToggle"}, s.Toggle)
 		p.HandleFunction(&plugin.FunctionOptions{Name: "InitializeAYUNiS"}, s.Init)
 		return nil
 	})
