@@ -1,6 +1,10 @@
 # AYUNiS.nvim
 All YoU Need Is Spotify
 
+## Require
+- go >= 1.9.1
+- [Shougo/dein.vim](https://github.com/Shougo/dein.vim)
+
 ## Installation
 1. Plz write below code in `$XDG_CONFIG_HOME/nvim/init.vim` if you use dein.vim
 ``` vim
