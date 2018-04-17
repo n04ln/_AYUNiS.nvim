@@ -9,6 +9,7 @@ import (
 
 type Spotify struct {
 	NowPlaying string
+	Rtp        string
 }
 
 func (s *Spotify) init() {
@@ -23,6 +24,7 @@ func NewSpotify() *Spotify {
 
 func (s *Spotify) Init(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	s.setRuntimePath(nimvle)
 	s.pollingNowPlaying(nimvle)
 	return nil
 }
@@ -32,10 +34,10 @@ func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 }
 
 func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
+	rtp := s.Rtp
 	go func() {
 		for {
-			// out, err := exec.Command("/usr/bin/osascript", "spotify_util/now_playing.applescript").Output()
-			out, err := exec.Command("pwd").Output()
+			out, err := exec.Command("/usr/bin/osascript", rtp+"spotify_util/now_playing.applescript").Output()
 			if err != nil {
 				nimvle.Log(err.Error())
 				continue
@@ -44,13 +46,22 @@ func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
 			s.NowPlaying = string(out[:len(out)-1]) // drop ^@
 		}
 	}()
+}
 
+func (s *Spotify) setRuntimePath(nimvle *nimvle.Nimvle) {
+	rtp, err := nimvle.Eval(`dein#get("AYUNiS.nvim")['rtp']`)
+	if err != nil {
+		panic(err)
+	}
+
+	s.Rtp = rtp.(string) + "/"
+	return
 }
 
 func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
 
-	_, err := exec.Command("/usr/bin/osascript", "spotify_util/playback_next.applescript").Output()
+	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_next.applescript").Output()
 	if err != nil {
 		nimvle.Log(err.Error())
 	}
@@ -61,7 +72,7 @@ func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
 
-	_, err := exec.Command("/usr/bin/osascript", "spotify_util/playback_prev.applescript").Output()
+	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_prev.applescript").Output()
 	if err != nil {
 		nimvle.Log(err.Error())
 	}
