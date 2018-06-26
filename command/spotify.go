@@ -2,6 +2,7 @@ package command
 
 import (
 	"os/exec"
+	"sync"
 
 	"github.com/NoahOrberg/nimvle.nvim/nimvle"
 	"github.com/neovim/go-client/nvim"
@@ -10,10 +11,12 @@ import (
 type Spotify struct {
 	NowPlaying string
 	Rtp        string
+	m          *sync.Mutex
 }
 
 func (s *Spotify) init() {
 	// initialize
+	s.m = new(sync.Mutex)
 }
 
 func NewSpotify() *Spotify {
@@ -43,7 +46,9 @@ func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
 				continue
 			}
 
+			s.m.Lock()
 			s.NowPlaying = string(out[:len(out)-1]) // drop ^@
+			s.m.Unlock()
 		}
 	}()
 }
@@ -60,6 +65,7 @@ func (s *Spotify) setRuntimePath(nimvle *nimvle.Nimvle) {
 
 func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	defer nimvle.RedrawStatusLine()
 
 	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_next.applescript").Output()
 	if err != nil {
@@ -71,6 +77,7 @@ func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 
 func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	defer nimvle.RedrawStatusLine()
 
 	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_prev.applescript").Output()
 	if err != nil {
@@ -82,6 +89,7 @@ func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
 
 func (s *Spotify) Toggle(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	defer nimvle.RedrawStatusLine()
 
 	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_toggle.applescript").Output()
 	if err != nil {
