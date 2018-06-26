@@ -1,15 +1,15 @@
-hash: bcca6f0ada6baf9e9d0262fbcf766e6fc50ed71c6c79f3a3701eb1cdbbb7f83e
-updated: 2018-04-18T01:19:06.238783149+09:00
+hash: 24103cf1466640f390e6b778e9037991cab66d3a19052c19c58b50e195574834
+updated: 2018-06-27T01:13:06.696713+09:00
 imports:
 - name: github.com/neovim/go-client
-  version: 9ff6dbd3a83f86119a14095c3635eb77ffa7bc90
+  version: 1c2696a88048c01a46c9c6be486ee0ded23beb91
   subpackages:
   - msgpack
   - msgpack/rpc
   - nvim
   - nvim/plugin
 - name: github.com/NoahOrberg/nimvle.nvim
-  version: d70d7a2dd26a74b28d2838cec8c6170db2ff7344
+  version: ddcd945e17bf0587f0b4f54e0ff661523df1f943
   subpackages:
   - nimvle
 testImports: []
