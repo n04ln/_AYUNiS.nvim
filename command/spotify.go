@@ -31,7 +31,7 @@ func NewSpotify() *Spotify {
 func (s *Spotify) Init(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
 	s.setRuntimePath(nimvle)
-	s.pollingNowPlaying(nimvle)
+	s.pollingNowPlaying()
 	return nil
 }
 
@@ -39,19 +39,20 @@ func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 	return s.NowPlaying, nil
 }
 
-func (s *Spotify) pollingNowPlaying(nimvle *nimvle.Nimvle) {
+func (s *Spotify) pollingNowPlaying() {
 	rtp := s.Rtp
 	go func() {
 		for {
 			out, err := exec.Command("/usr/bin/osascript", rtp+"spotify_util/now_playing.applescript").Output()
 			if err != nil {
-				nimvle.Log(err.Error())
 				continue
 			}
 
 			s.m.Lock()
 			s.NowPlaying = string(out[:len(out)-1]) // drop ^@
 			s.m.Unlock()
+
+			time.Sleep(100 * time.Millisecond)
 		}
 	}()
 }
@@ -75,7 +76,7 @@ func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 			if err := nimvle.RedrawStatusLine(); err != nil {
 				nimvle.Log(err.Error())
 			}
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 		}
 	}()
 
@@ -96,7 +97,7 @@ func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
 			if err := nimvle.RedrawStatusLine(); err != nil {
 				nimvle.Log(err.Error())
 			}
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 		}
 	}()
 
@@ -117,7 +118,7 @@ func (s *Spotify) Toggle(v *nvim.Nvim, args []string) error {
 			if err := nimvle.RedrawStatusLine(); err != nil {
 				nimvle.Log(err.Error())
 			}
-			time.Sleep(10 * time.Millisecond)
+			time.Sleep(100 * time.Millisecond)
 		}
 	}()
 
