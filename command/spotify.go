@@ -72,7 +72,8 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 
 	go func() {
 		// NOTE: not smart...
-		err := v.Command("call ayunis#reload_statusline()")
+		time.Sleep(500 * time.Millisecond)
+		err := nimvle.RedrawStatusLine()
 		if err != nil {
 			nimvle.Log(err.Error())
 		}
