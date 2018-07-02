@@ -35,17 +35,36 @@ let g:airline_section_x = airline#section#create(['%{AYUNiSGetNowPlaying()}'])
 ``` vim
 :call AYUNiSNext()
 ```
-or `<C-s>l` in normal mode
+or `<SPACE>sl` in normal mode
 
 ### Prev Track
 ``` vim
 :call AYUNiSPrev()
 ```
-or `<C-s>h` in normal mode
+or `<SPACE>sh` in normal mode
 
 ### Toggle Play & Pause
 ``` vim
 :call AYUNiSToggle()
 ```
-or `<C-s>t` in normal mode
+or `<SPACE>st` in normal mode
+
+### Volume Control
+``` vim
+:call AYUNiSVolumeUp()
+:call AYUNiSVolumeDown()
+```
+or `<SPACE>s+` and `<SPACE>s-` in normal mode
+
+### Toggle REPEAT
+``` vim
+:call AYUNiSToggleRepeat()
+```
+or `<SPACE>sr` in normal mode
+
+### Toggle SHUFFLE
+``` vim
+:call AYUNiSToggleShuffle()
+```
+or `<SPACE>sf` in normal mode
 

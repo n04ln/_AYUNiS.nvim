@@ -104,13 +104,6 @@ func (s *Spotify) ToggleRepeat(v *nvim.Nvim, args []string) error {
 }
 
 func (s *Spotify) ToggleShuffle(v *nvim.Nvim, args []string) error {
-	defer func(v *nvim.Nvim) {
-		nimvle := nimvle.New(v, "AYUNiS.nvim")
-		r := recover()
-		if r != nil {
-			nimvle.Log(r)
-		}
-	}(v)
 	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/toggle_shuffle.applescript")
 }
 
