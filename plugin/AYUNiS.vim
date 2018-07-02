@@ -34,9 +34,9 @@ nnoremap <silent><SPACE>sh :call AYUNiSPrev()<CR>
 " Toggle(playpause)
 nnoremap <silent><SPACE>st :call AYUNiSToggle()<CR>
 " Volume up
-nnoremap <silent><SPACE>s: :call AYUNiSVolumeUp()<CR>
+nnoremap <silent><SPACE>s- :call AYUNiSVolumeUp()<CR>
 " Volume down
-nnoremap <silent><SPACE>s" :call AYUNiSVolumeDown()<CR>
+nnoremap <silent><SPACE>s+ :call AYUNiSVolumeDown()<CR>
 " Toggle Repeat
 nnoremap <silent><SPACE>sr :call AYUNiSToggleRepeat()<CR>
 " Toggle Shuffle
