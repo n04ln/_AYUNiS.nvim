@@ -72,7 +72,7 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 
 	go func() {
 		// NOTE: not smart...
-		_, err := nimvle.Eval("call ayunis#reload_statusline()")
+		err := v.Command("call ayunis#reload_statusline()")
 		if err != nil {
 			nimvle.Log(err.Error())
 		}
