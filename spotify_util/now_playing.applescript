@@ -3,7 +3,7 @@
 if application "Spotify" is running
   tell application "Spotify"
     if (player state as string) is "playing" then
-        set nowPlaying to "🎧"
+        set nowPlaying to "▶"
     else
         set nowPlaying to ""
     end if
