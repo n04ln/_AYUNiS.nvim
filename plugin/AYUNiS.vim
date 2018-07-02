@@ -28,19 +28,19 @@ call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 " Initialize
 call InitializeAYUNiS()
 " Next
-nnoremap <silent><C-s>l :call AYUNiSNext()<CR>
+nnoremap <silent><SPACE>sl :call AYUNiSNext()<CR>
 " Prev
-nnoremap <silent><C-s>h :call AYUNiSPrev()<CR>
+nnoremap <silent><SPACE>sh :call AYUNiSPrev()<CR>
 " Toggle(playpause)
-nnoremap <silent><C-s>t :call AYUNiSToggle()<CR>
+nnoremap <silent><SPACE>st :call AYUNiSToggle()<CR>
 " Volume up
-nnoremap <silent><C-s>; :call AYUNiSVolumeUp()<CR>
+nnoremap <silent><SPACE>s; :call AYUNiSVolumeUp()<CR>
 " Volume down
-nnoremap <silent><C-s>: :call AYUNiSVolumeDown()<CR>
+nnoremap <silent><SPACE>s: :call AYUNiSVolumeDown()<CR>
 " Toggle Repeat
-nnoremap <silent><C-s>r :call AYUNiSToggleRepeat()<CR>
+nnoremap <silent><SPACE>sr :call AYUNiSToggleRepeat()<CR>
 " Toggle Shuffle
-nnoremap <silent><C-s>f :call AYUNiSToggleShuffle()<CR>
+nnoremap <silent><SPACE>sf :call AYUNiSToggleShuffle()<CR>
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
