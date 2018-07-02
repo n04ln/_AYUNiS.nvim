@@ -67,7 +67,7 @@ func (s *Spotify) setRuntimePath(nimvle *nimvle.Nimvle) {
 	return
 }
 
-func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
+func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
 
 	go func() {
@@ -80,52 +80,38 @@ func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 		}
 	}()
 
-	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_next.applescript").Output()
+	_, err := exec.Command(cmd, args...).Output()
 	if err != nil {
 		nimvle.Log(err.Error())
 	}
 
 	return nil
+}
+
+func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/playback_next.applescript")
 }
 
 func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
-	nimvle := nimvle.New(v, "AYUNiS.nvim")
-
-	go func() {
-		// NOTE: not smart...
-		for i := 0; i < s.retryCount; i++ {
-			if err := nimvle.RedrawStatusLine(); err != nil {
-				nimvle.Log(err.Error())
-			}
-			time.Sleep(100 * time.Millisecond)
-		}
-	}()
-
-	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_prev.applescript").Output()
-	if err != nil {
-		nimvle.Log(err.Error())
-	}
-
-	return nil
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/playback_prev.applescript")
 }
 
 func (s *Spotify) Toggle(v *nvim.Nvim, args []string) error {
-	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/playback_toggle.applescript")
+}
 
-	go func() {
-		// NOTE: not smart...
-		for i := 0; i < s.retryCount; i++ {
-			if err := nimvle.RedrawStatusLine(); err != nil {
-				nimvle.Log(err.Error())
-			}
-			time.Sleep(100 * time.Millisecond)
-		}
-	}()
+func (s *Spotify) ToggleRepeat(v *nvim.Nvim, args []string) error {
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/toggle_repeat.applescript")
+}
 
-	_, err := exec.Command("/usr/bin/osascript", s.Rtp+"spotify_util/playback_toggle.applescript").Output()
-	if err != nil {
-		nimvle.Log(err.Error())
-	}
+func (s *Spotify) ToggleShuffle(v *nvim.Nvim, args []string) error {
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/toggle_shuffle.applescript")
+}
 
-	return nil
+func (s *Spotify) VolumeUp(v *nvim.Nvim, args []string) error {
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/volume_up.applescript")
+}
+
+func (s *Spotify) VolumeDown(v *nvim.Nvim, args []string) error {
+	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/volume_down.applescript")
 }
