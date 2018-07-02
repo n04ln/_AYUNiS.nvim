@@ -8,11 +8,7 @@ let g:loaded_AYUNiS = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! ayunis#get_now_playing() abort
-   return system("spotify_util/now_playing.applescript") 
-endfunction
-
-function! ayunis#reload_statusline() abort
+function! ayunis#reloadStatusLine() abort
     let i = 0
     for i < 100
         redrawstatus
