@@ -19,7 +19,7 @@ type Spotify struct {
 func (s *Spotify) init() {
 	// initialize
 	s.m = new(sync.Mutex)
-	s.retryCount = 100 // NOTE: about
+	s.retryCount = 10 // NOTE: about
 }
 
 func NewSpotify() *Spotify {
@@ -72,11 +72,9 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 
 	go func() {
 		// NOTE: not smart...
-		for i := 0; i < s.retryCount; i++ {
-			if err := nimvle.RedrawStatusLine(); err != nil {
-				nimvle.Log(err.Error())
-			}
-			time.Sleep(100 * time.Millisecond)
+		_, err := nimvle.Eval("call ayunis#reload_statusline()")
+		if err != nil {
+			nimvle.Log(err.Error())
 		}
 	}()
 
@@ -105,6 +103,13 @@ func (s *Spotify) ToggleRepeat(v *nvim.Nvim, args []string) error {
 }
 
 func (s *Spotify) ToggleShuffle(v *nvim.Nvim, args []string) error {
+	defer func(v *nvim.Nvim) {
+		nimvle := nimvle.New(v, "AYUNiS.nvim")
+		r := recover()
+		if r != nil {
+			nimvle.Log(r)
+		}
+	}(v)
 	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/toggle_shuffle.applescript")
 }
 
