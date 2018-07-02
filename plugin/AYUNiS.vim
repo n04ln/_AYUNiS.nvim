@@ -18,6 +18,10 @@ call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 \ {'type': 'function', 'name': 'AYUNiSNext', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'AYUNiSPrev', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'AYUNiSToggle', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSToggleRepeat', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSToggleShuffle', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSVolumeDown', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'AYUNiSVolumeUp', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'InitializeAYUNiS', 'sync': 1, 'opts': {}},
 \ ])
 
@@ -29,6 +33,14 @@ nnoremap <silent><C-s>l :call AYUNiSNext()<CR>
 nnoremap <silent><C-s>h :call AYUNiSPrev()<CR>
 " Toggle(playpause)
 nnoremap <silent><C-s>t :call AYUNiSToggle()<CR>
+" Volume up
+nnoremap <silent><C-s>; :call AYUNiSVolumeUp()<CR>
+" Volume down
+nnoremap <silent><C-s>: :call AYUNiSVolumeDown()<CR>
+" Toggle Repeat
+nnoremap <silent><C-s>r :call AYUNiSToggleRepeat()<CR>
+" Toggle Shuffle
+nnoremap <silent><C-s>f :call AYUNiSToggleShuffle()<CR>
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
