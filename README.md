@@ -37,7 +37,7 @@ set statusline+=%!AYUNiSGetNowPlaying()
 " use airline (show in the statusline
 let g:airline_section_x = airline#section#create(['%{AYUNiSGetNowPlaying()}'])
 
-" use LightLine (show in the tabline
+" use lightline (show in the tabline
 let g:lightline = {
       \ 'component_function': {
       \   'ayunis': 'AYUNiSGetNowPlaying'
