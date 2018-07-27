@@ -3,15 +3,22 @@ All YoU Need Is Spotify
 
 ## Require
 - go >= 1.9.1
-- [Shougo/dein.vim](https://github.com/Shougo/dein.vim) (Plugin Manager)
 
 ## Installation
 1. Plz write below code in `$XDG_CONFIG_HOME/nvim/init.vim` if you use dein.vim
 ``` vim
+" e.g.
 call dein#add("NoahOrberg/AYUNiS.nvim")
+" or
+Plug 'NoahOrberg/AYUNiS.nvim'
+```
+and set runtimepath
+``` vim
+" e.g.
+let g:ayunis_rtp = $HOME . '/.vim/plugged/AYUNiS.nvim'
 ```
 
-2. `:call dein#update()`
+2. please execute install command
 
 3. execute `$ go get -u github.com/NoahOrberg/AYUNiS.nvim` because install binary
 
@@ -27,8 +34,19 @@ if you want to add to `statusline`, plz set as below
 " default
 set statusline+=%!AYUNiSGetNowPlaying()
 
-" use airline
+" use airline (show in the statusline
 let g:airline_section_x = airline#section#create(['%{AYUNiSGetNowPlaying()}'])
+
+" use LightLine (show in the tabline
+let g:lightline = {
+      \ 'component_function': {
+      \   'ayunis': 'AYUNiSGetNowPlaying'
+      \ },
+      \ }
+let g:lightline.tabline          = {
+      \ 'left': [['ayunis', 'buffers']],
+      \ 'right': [['close']]
+      \ }
 ```
 
 ### Next Track
