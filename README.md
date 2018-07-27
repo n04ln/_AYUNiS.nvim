@@ -1,8 +1,9 @@
 # AYUNiS.nvim
-All YoU Need Is Spotify
+All YoU Need Is Spotify (only macOS)
 
 ## Require
 - go >= 1.9.1
+- Spotify.app
 
 ## Installation
 1. Plz write below code in `$XDG_CONFIG_HOME/nvim/init.vim` if you use dein.vim
