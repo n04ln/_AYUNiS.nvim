@@ -24,6 +24,11 @@ call remote#host#RegisterPlugin('AYUNiS.nvim', '0', [
 \ {'type': 'function', 'name': 'AYUNiSVolumeUp', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'InitializeAYUNiS', 'sync': 1, 'opts': {}},
 \ ])
+"
+" variable (set init.vim)
+if !exists('g:ayunis_rtp')
+  let g:ayunis_rtp = ''
+endif
 
 " Initialize
 call InitializeAYUNiS()

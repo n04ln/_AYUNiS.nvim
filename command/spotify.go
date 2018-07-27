@@ -2,6 +2,7 @@ package command
 
 import (
 	"os/exec"
+	"strings"
 	"sync"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 
 type Spotify struct {
 	NowPlaying string
-	Rtp        string
+	n          *nimvle.Nimvle
 	m          *sync.Mutex
 	retryCount int
 }
@@ -30,7 +31,7 @@ func NewSpotify() *Spotify {
 
 func (s *Spotify) Init(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	s.setRuntimePath(nimvle)
+	s.n = nimvle
 	s.pollingNowPlaying()
 	return nil
 }
@@ -40,10 +41,11 @@ func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 }
 
 func (s *Spotify) pollingNowPlaying() {
-	rtp := s.Rtp
+	rtp := s.runtimePath(s.n)
 	go func() {
 		for {
-			out, err := exec.Command("/usr/bin/osascript", rtp+"spotify_util/now_playing.applescript").Output()
+			cmd := exec.Command("/usr/bin/osascript", rtp+"spotify_util/now_playing.applescript")
+			out, err := cmd.Output()
 			if err != nil {
 				continue
 			}
@@ -57,14 +59,19 @@ func (s *Spotify) pollingNowPlaying() {
 	}()
 }
 
-func (s *Spotify) setRuntimePath(nimvle *nimvle.Nimvle) {
-	rtp, err := nimvle.Eval(`dein#get("AYUNiS.nvim")['rtp']`)
+func (s *Spotify) runtimePath(nimvle *nimvle.Nimvle) string {
+	irtp, err := nimvle.Eval(`g:ayunis_rtp`)
 	if err != nil {
+		nimvle.Log(err)
 		panic(err)
 	}
 
-	s.Rtp = rtp.(string) + "/"
-	return
+	srtp := irtp.(string)
+	if !strings.HasSuffix(srtp, "/") {
+		srtp = strings.Join([]string{srtp, "/"}, "")
+	}
+
+	return srtp
 }
 
 func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
@@ -73,7 +80,8 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 	go func() {
 		// NOTE: not smart...
 		time.Sleep(500 * time.Millisecond)
-		err := nimvle.RedrawStatusLine()
+		// NOTE: not smart...
+		err := nimvle.Command("set tabline+=\"\"; set statusline+=\"\"")
 		if err != nil {
 			nimvle.Log(err.Error())
 		}
@@ -88,29 +96,36 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 }
 
 func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/playback_next.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/playback_next.applescript")
 }
 
 func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/playback_prev.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/playback_prev.applescript")
 }
 
 func (s *Spotify) Toggle(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/playback_toggle.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/playback_toggle.applescript")
 }
 
 func (s *Spotify) ToggleRepeat(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/toggle_repeat.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/toggle_repeat.applescript")
 }
 
 func (s *Spotify) ToggleShuffle(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/toggle_shuffle.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/toggle_shuffle.applescript")
 }
 
 func (s *Spotify) VolumeUp(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/volume_up.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/volume_up.applescript")
 }
 
 func (s *Spotify) VolumeDown(v *nvim.Nvim, args []string) error {
-	return s.exec(v, "/usr/bin/osascript", s.Rtp+"spotify_util/volume_down.applescript")
+	nimvle := nimvle.New(v, "AYUNiS.nvim")
+	return s.exec(v, "/usr/bin/osascript", s.runtimePath(nimvle)+"spotify_util/volume_down.applescript")
 }

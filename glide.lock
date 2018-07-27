@@ -1,5 +1,5 @@
 hash: 24103cf1466640f390e6b778e9037991cab66d3a19052c19c58b50e195574834
-updated: 2018-06-27T01:13:06.696713+09:00
+updated: 2018-07-27T16:19:17.984204+09:00
 imports:
 - name: github.com/neovim/go-client
   version: 1c2696a88048c01a46c9c6be486ee0ded23beb91
@@ -9,7 +9,7 @@ imports:
   - nvim
   - nvim/plugin
 - name: github.com/NoahOrberg/nimvle.nvim
-  version: ddcd945e17bf0587f0b4f54e0ff661523df1f943
+  version: b5e4088abcf802679f4ed25c6016b3b68800d2d4
   subpackages:
   - nimvle
 testImports: []
