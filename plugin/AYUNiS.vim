@@ -32,20 +32,6 @@ endif
 
 " Initialize
 call InitializeAYUNiS()
-" Next
-nnoremap <silent><SPACE>sl :call AYUNiSNext()<CR>
-" Prev
-nnoremap <silent><SPACE>sh :call AYUNiSPrev()<CR>
-" Toggle(playpause)
-nnoremap <silent><SPACE>st :call AYUNiSToggle()<CR>
-" Volume up
-nnoremap <silent><SPACE>s+ :call AYUNiSVolumeUp()<CR>
-" Volume down
-nnoremap <silent><SPACE>s- :call AYUNiSVolumeDown()<CR>
-" Toggle Repeat
-nnoremap <silent><SPACE>sr :call AYUNiSToggleRepeat()<CR>
-" Toggle Shuffle
-nnoremap <silent><SPACE>sf :call AYUNiSToggleShuffle()<CR>
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

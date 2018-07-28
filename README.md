@@ -54,36 +54,48 @@ let g:lightline.tabline          = {
 ``` vim
 :call AYUNiSNext()
 ```
-or `<SPACE>sl` in normal mode
 
 ### Prev Track
 ``` vim
 :call AYUNiSPrev()
 ```
-or `<SPACE>sh` in normal mode
 
 ### Toggle Play & Pause
 ``` vim
 :call AYUNiSToggle()
 ```
-or `<SPACE>st` in normal mode
 
 ### Volume Control
 ``` vim
 :call AYUNiSVolumeUp()
 :call AYUNiSVolumeDown()
 ```
-or `<SPACE>s+` and `<SPACE>s-` in normal mode
 
 ### Toggle REPEAT
 ``` vim
 :call AYUNiSToggleRepeat()
 ```
-or `<SPACE>sr` in normal mode
 
 ### Toggle SHUFFLE
 ``` vim
 :call AYUNiSToggleShuffle()
 ```
-or `<SPACE>sf` in normal mode
 
+## Keybinds
+###  Example
+``` vim
+" Next
+nnoremap <silent><SPACE>sl :call AYUNiSNext()<CR>
+" Prev
+nnoremap <silent><SPACE>sh :call AYUNiSPrev()<CR>
+" Toggle(playpause)
+nnoremap <silent><SPACE>st :call AYUNiSToggle()<CR>
+" Volume up
+nnoremap <silent><SPACE>s+ :call AYUNiSVolumeUp()<CR>
+" Volume down
+nnoremap <silent><SPACE>s- :call AYUNiSVolumeDown()<CR>
+" Toggle Repeat
+nnoremap <silent><SPACE>sr :call AYUNiSToggleRepeat()<CR>
+" Toggle Shuffle
+nnoremap <silent><SPACE>sf :call AYUNiSToggleShuffle()<CR>
+```
