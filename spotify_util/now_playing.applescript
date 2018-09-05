@@ -8,12 +8,12 @@ if application "Spotify" is running
         set nowPlaying to ""
     end if
     if repeating then
-        set isRepeat to "🔃"
+        set isRepeat to "r"
     else
         set isRepeat to ""
     end if
     if shuffling then
-        set isShuffle to "🔀"
+        set isShuffle to "s"
     else
         set isShuffle to ""
     end if
