@@ -19,7 +19,7 @@ if application "Spotify" is running
     end if
     set currentArtist to artist of current track as string
     set currentTrack to name of current track as string
-    return currentArtist & currentTrack & " - " & " " & nowPlaying & isRepeat & " " & isShuffle
+    return nowPlaying & currentTrack & " - " & currentArtist & " " & isRepeat & " " & isShuffle
   end tell
 else
   return "💤"
