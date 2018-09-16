@@ -8,18 +8,18 @@ if application "Spotify" is running
         set nowPlaying to ""
     end if
     if repeating then
-        set isRepeat to "[R]"
+        set isRepeat to " [R]"
     else
         set isRepeat to ""
     end if
     if shuffling then
-        set isShuffle to "[S]"
+        set isShuffle to " [S]"
     else
         set isShuffle to ""
     end if
     set currentArtist to artist of current track as string
     set currentTrack to name of current track as string
-    return nowPlaying & currentTrack & " - " & currentArtist & " " & isRepeat & " " & isShuffle
+    return nowPlaying & " " & currentTrack & " - " & currentArtist & isRepeat & isShuffle
   end tell
 else
   return "💤"
