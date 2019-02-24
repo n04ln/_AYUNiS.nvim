@@ -81,7 +81,7 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 		// NOTE: not smart...
 		time.Sleep(500 * time.Millisecond)
 		// NOTE: not smart...
-		err := nimvle.Command("set tabline+=\"\"; set statusline+=\"\"")
+		err := v.Command("set tabline+=\"\"; set statusline+=\"\"")
 		if err != nil {
 			nimvle.Log(err.Error())
 		}
