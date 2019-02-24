@@ -2,7 +2,7 @@
 All YoU Need Is Spotify (only macOS)
 
 ## Require
-- go >= 1.9.1
+- go >= 1.11.0
 - Spotify.app
 
 ## Installation
