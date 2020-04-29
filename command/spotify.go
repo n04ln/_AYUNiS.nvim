@@ -15,46 +15,47 @@ var (
 	initializedNowPlaying = make(chan struct{}, 1)
 )
 
+const (
+	getNowPlayingPollingInterval = 3000 * time.Millisecond
+)
+
 type Spotify struct {
 	NowPlaying string
 	n          *nimvle.Nimvle
 	m          *sync.Mutex
 
 	// For initialize GetNowPlaying
-	onceRecv *sync.Once
-	onceSnd  *sync.Once
-}
-
-func (s *Spotify) init() {
-	// initialize
-	s.m = new(sync.Mutex)
-	s.onceRecv = new(sync.Once)
-	s.onceSnd = new(sync.Once)
+	onceRecv   *sync.Once
+	initialize *sync.Once
 }
 
 func NewSpotify() *Spotify {
-	s := &Spotify{}
-	s.init()
+	s := &Spotify{
+		m:          new(sync.Mutex),
+		onceRecv:   new(sync.Once),
+		initialize: new(sync.Once),
+	}
+
 	return s
 }
 
 func (s *Spotify) Init(v *nvim.Nvim, args []string) error {
-	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	s.n = nimvle
-	s.pollingNowPlaying()
+	s.initialize.Do(func() {
+		nimvle := nimvle.New(v, "AYUNiS.nvim")
+		s.n = nimvle
+		s.pollingNowPlaying()
 
-	nowPlaying, err := s.getNowPlaying(
-		s.runtimePath(nimvle))
-	if err != nil {
-		nimvle.Log(err)
-	}
+		nowPlaying, err := s.getNowPlaying(
+			s.runtimePath(nimvle))
+		if err != nil {
+			nimvle.Log(err)
+		}
 
-	s.m.Lock()
-	defer s.m.Unlock()
-	s.NowPlaying = nowPlaying
+		s.m.Lock()
+		defer s.m.Unlock()
+		s.NowPlaying = nowPlaying
 
-	// NOTE: At first, GetNowPlaying method wait this channel
-	s.onceSnd.Do(func() {
+		// NOTE: At first, GetNowPlaying method wait this channel
 		initializedNowPlaying <- struct{}{}
 	})
 
@@ -63,7 +64,7 @@ func (s *Spotify) Init(v *nvim.Nvim, args []string) error {
 
 func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 	s.onceRecv.Do(func() {
-		<-initializedNowPlaying
+		<-initializedNowPlaying // wait to finish initialize method
 	})
 	return s.NowPlaying, nil
 }
@@ -94,7 +95,7 @@ func (s *Spotify) pollingNowPlaying() {
 				s.m.Unlock()
 			}
 
-			time.Sleep(1500 * time.Millisecond)
+			time.Sleep(getNowPlayingPollingInterval)
 		}
 	}()
 }

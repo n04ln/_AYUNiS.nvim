@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 if exists('g:loaded_AYUNiS')
-    finish
+  finish
 endif
 let g:loaded_AYUNiS = 1
 
@@ -32,6 +32,17 @@ endif
 
 " Initialize
 call InitializeAYUNiS()
+
+" Refresh tabline at regular interval
+func! RefreshTabline(timer) abort
+  " refresh tabline
+  set tabline+=""
+endfunc
+
+let g:ayunis_refresh_tabline_timer = timer_start(
+      \ 1000,
+      \ 'RefreshTabline',
+      \ {'repeat': -1})
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

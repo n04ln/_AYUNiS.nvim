@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
-if exists('g:loaded_AYUNiS')
-    finish
+if !exists('g:loaded_AYUNiS')
+  finish
 endif
 let g:loaded_AYUNiS = 1
 
