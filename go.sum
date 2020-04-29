@@ -1,4 +1,4 @@
-github.com/NoahOrberg/nimvle.nvim v0.0.0-20181108082017-677e9c47cdb3 h1:IiZR+oCKVIxn9f5NzoqFDPQ69Z9kF/RlZMrNU1TniHM=
-github.com/NoahOrberg/nimvle.nvim v0.0.0-20181108082017-677e9c47cdb3/go.mod h1:uZlJji/UuLQSsDTYZqvNKTVU/EkChYDrw5BowbmskQM=
+github.com/n04ln/nimvle.nvim v0.0.0-20181108082017-677e9c47cdb3 h1:AuHzRFvc1fkSXv6grm1MFLkPetzPnULBoIFoXgBDAzA=
+github.com/n04ln/nimvle.nvim v0.0.0-20181108082017-677e9c47cdb3/go.mod h1:m3qMBsh18a1PPXExxcZ9bDydiPt0wH0lOXxLo+2tV1k=
 github.com/neovim/go-client v0.0.0-20180317061334-9ff6dbd3a83f h1:vyAMHbYR3gOj1K18qoNvN26m1Anoniii5YAdBEVEIWM=
 github.com/neovim/go-client v0.0.0-20180317061334-9ff6dbd3a83f/go.mod h1:cHx8fl6EhCgSA/pyKeVtyl3o6UzgE31ADtc+bx3JpKg=

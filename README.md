@@ -6,14 +6,14 @@ All YoU Need Is Spotify (only macOS)
 - Spotify.app
 
 ## Installation
-1. execute `$ go get -u github.com/NoahOrberg/AYUNiS.nvim` because install a binary
+1. execute `$ go get -u github.com/n04ln/AYUNiS.nvim` because install a binary
 
 2. Plz write below code in `$XDG_CONFIG_HOME/nvim/init.vim`
 ``` vim
 " if you use dein.vim
-call dein#add("NoahOrberg/AYUNiS.nvim")
+call dein#add("n04ln/AYUNiS.nvim")
 " if you use vim-plug
-Plug 'NoahOrberg/AYUNiS.nvim'
+Plug 'n04ln/AYUNiS.nvim'
 ```
 and set runtimepath
 ``` vim

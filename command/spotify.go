@@ -6,7 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/NoahOrberg/nimvle.nvim/nimvle"
+	"github.com/n04ln/nimvle.nvim/nimvle"
+
 	"github.com/neovim/go-client/nvim"
 )
 

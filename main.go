@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/NoahOrberg/AYUNiS.nvim/command"
+	"github.com/n04ln/AYUNiS.nvim/command"
+
 	"github.com/neovim/go-client/nvim/plugin"
 )
 
