@@ -17,6 +17,18 @@ var (
 
 const (
 	getNowPlayingPollingInterval = 3000 * time.Millisecond
+	appleScriptCmd               = "/usr/bin/osascript"
+
+	appleScriptNowPlaying = "spotify_util/now_playing.applescript"
+	appleScriptNext       = "spotify_util/playback_next.applescript"
+	appleScriptPrev       = "spotify_util/playback_prev.applescript"
+	appleScriptToggle     = "spotify_util/playback_toggle.applescript"
+	appleScriptRepeat     = "spotify_util/toggle_repeat.applescript"
+	appleScriptSuffle     = "spotify_util/toggle_shuffle.applescript"
+	appleScriptVolumeUp   = "spotify_util/volume_up.applescript"
+	appleScriptVolumeDown = "spotify_util/volume_down.applescript"
+
+	nvimAYUNiSRuntimeVar = "g:ayunis_rtp"
 )
 
 type Spotify struct {
@@ -71,7 +83,7 @@ func (s *Spotify) GetNowPlaying(v *nvim.Nvim, args []string) (string, error) {
 
 func (s *Spotify) getNowPlaying(rtp string) (string, error) {
 	cmd := exec.Command(
-		"/usr/bin/osascript", rtp+"spotify_util/now_playing.applescript")
+		appleScriptCmd, rtp+appleScriptNowPlaying)
 	out, err := cmd.Output()
 	if err != nil {
 		return "", err
@@ -101,7 +113,7 @@ func (s *Spotify) pollingNowPlaying() {
 }
 
 func (s *Spotify) runtimePath(nimvle *nimvle.Nimvle) string {
-	irtp, err := nimvle.Eval(`g:ayunis_rtp`)
+	irtp, err := nimvle.Eval(nvimAYUNiSRuntimeVar)
 	if err != nil {
 		nimvle.Log(err)
 		panic(err)
@@ -123,70 +135,47 @@ func (s *Spotify) exec(v *nvim.Nvim, cmd string, args ...string) error {
 		nimvle.Log(err.Error())
 	}
 
-	// StupidSolution: Spotify.app takes time to be reflected. So polling it
-	limit := 100
-	for i := 0; i < limit; i++ {
-		// NOTE: check about it is changing song
-		if strings.Contains(args[0], "next") ||
-			strings.Contains(args[0], "shuffle") {
-
-			nowPlaying, err := s.getNowPlaying(
-				s.runtimePath(nimvle))
-			if err != nil {
-				nimvle.Log(err.Error())
-			}
-			if nowPlaying != s.NowPlaying {
-				s.m.Lock()
-				defer s.m.Unlock()
-
-				s.NowPlaying = nowPlaying
-				break
-			}
-			time.Sleep(100 * time.Millisecond)
-		}
-	}
-
 	return nil
 }
 
 func (s *Spotify) Next(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/playback_next.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptNext)
 }
 
 func (s *Spotify) Prev(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/playback_prev.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptPrev)
 }
 
 func (s *Spotify) Toggle(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/playback_toggle.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptToggle)
 }
 
 func (s *Spotify) ToggleRepeat(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/toggle_repeat.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptRepeat)
 }
 
 func (s *Spotify) ToggleShuffle(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/toggle_shuffle.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptSuffle)
 }
 
 func (s *Spotify) VolumeUp(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/volume_up.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptVolumeUp)
 }
 
 func (s *Spotify) VolumeDown(v *nvim.Nvim, args []string) error {
 	nimvle := nimvle.New(v, "AYUNiS.nvim")
-	return s.exec(v, "/usr/bin/osascript",
-		s.runtimePath(nimvle)+"spotify_util/volume_down.applescript")
+	return s.exec(v, appleScriptCmd,
+		s.runtimePath(nimvle)+appleScriptVolumeDown)
 }
